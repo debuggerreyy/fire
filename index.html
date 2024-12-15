@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMES Game</title>
+    <style>
+        /* Basic Body Styling */
+        body {
+            font-family: "Comic Sans MS", sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        /* Container Styling for the Game */
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Styling the Input Fields */
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: "Comic Sans MS", sans-serif;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #f77a7a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: "Comic Sans MS", sans-serif;
+        }
+
+        /* Hover Effect for Button */
+        button:hover {
+            background-color: #f54e4e;
+        }
+
+        /* Styling the Result Text */
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        /* Loading Bar Styling */
+        .loading-bar-container {
+            width: 80%;
+            background-color: #ccc;
+            border-radius: 5px;
+            margin: 10px auto;
+            height: 20px;
+            display: none;
+        }
+
+        /* Loading Bar Progress */
+        .loading-bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0%;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
+
+        /* Flame Logo Positioned in Bottom Right Corner */
+        #flameLogo {
+            position: fixed;
+            bottom: 160px;
+            right: 200px;
+            width: 200px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        /* Responsive Styling for Smaller Screens */
+        @media (max-width: 600px) {
+            body {
+                height: auto;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+
+            .container {
+                width: 90%;
+                max-width: none;
+            }
+
+            /* Adjust Flame Logo for Smaller Screens */
+            #flameLogo {
+                width: 80px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container for the Game -->
+    <div class="container">
+        <h1>FLAMES Game</h1>
+        <input type="text" id="yourName" placeholder="Your Name" />
+        <input type="text" id="crushName" placeholder="Crush's Name" />
+        <button id="calculateButton" onclick="calculateFlames()">Calculate FLAMES</button>
+        <div id="result" class="result"></div>
+
+        <!-- Loading Bar -->
+        <div class="loading-bar-container" id="loadingBarContainer">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+    </div>
+
+    <!-- Flame Logo in Bottom Right Corner -->
+    <img id="flameLogo" src="image/fired.gif" alt="Flame Logo" />
+
+    <script>
+        /* Function to Calculate FLAMES */
+        function calculateFlames() {
+            const yourName = document.getElementById("yourName").value.trim();
+            const crushName = document.getElementById("crushName").value.trim();
+            if (!yourName || !crushName) {
+                alert("Please fill in both names!");
+                return;
+            }
+
+            // Hide the Calculate button while loading
+            document.getElementById("calculateButton").style.display = "none";
+
+            // Show the loading bar
+            document.getElementById("loadingBarContainer").style.display = "block";
+            let percentage = 0;
+            const loadingBar = document.getElementById("loadingBar");
+
+            // Simulate loading progress
+            const loadingInterval = setInterval(() => {
+                percentage += 10;
+                loadingBar.style.width = percentage + "%";
+                loadingBar.textContent = percentage + "%";
+
+                if (percentage >= 100) {
+                    clearInterval(loadingInterval);
+                    performCalculation(yourName, crushName);
+                }
+            }, 150);
+        }
+
+        /* Function to Perform FLAMES Calculation */
+        function performCalculation(yourName, crushName) {
+            // Step 1: Remove spaces and convert both names to lowercase
+            yourName = yourName.replace(/\s+/g, '').toLowerCase();
+            crushName = crushName.replace(/\s+/g, '').toLowerCase();
+
+            // Step 2: Cross off common letters between the two names
+            let yourNameArray = yourName.split('');
+            let crushNameArray = crushName.split('');
+
+            // Loop through yourNameArray and remove letters that match in crushNameArray
+            for (let i = 0; i < yourNameArray.length; i++) {
+                let index = crushNameArray.indexOf(yourNameArray[i]);
+                if (index > -1) {
+                    // Remove matched letter
+                    crushNameArray.splice(index, 1);
+                    yourNameArray.splice(i, 1);
+                    i--; // Adjust the index after removal
+                }
+            }
+
+            // Step 3: Count the remaining letters
+            const remainingCount = yourNameArray.length + crushNameArray.length;
+
+            // Step 4: FLAMES calculation based on the remaining letter count
+            const flames = ["F", "L", "A", "M", "E", "S"];
+            let index = remainingCount % flames.length;
+
+            // If the index is 0, set it to the last element of the flames array
+            if (index === 0) {
+                index = flames.length - 1;
+            } else {
+                index--; // Adjust for zero-based indexing
+            }
+
+            const resultText = {
+                F: "Friends",
+                L: "Lovers",
+                A: "Affectionate",
+                M: "Marriage",
+                E: "Enemies",
+                S: "Siblings"
+            };
+
+            const resultGIF = {
+                F: "image/friends.gif",
+                L: "image/lovers.gif",
+                A: "image/affectionate.gif",
+                M: "image/marriage.gif",
+                E: "image/enemies.gif",
+                S: "image/siblings.gif"
+            };
+
+            // Display the result
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = `FLAMES Result: ${flames[index]} - ${resultText[flames[index]]}<br><img src="${resultGIF[flames[index]]}" alt="${resultText[flames[index]]}" />`;
+
+            // Hide the loading bar and show the button again after a short delay
+            setTimeout(() => {
+                document.getElementById("loadingBarContainer").style.display = "none";
+                document.getElementById("calculateButton").style.display = "inline-block";
+            }, 500);
+        }
+    </script>
+</body>
+</html>
