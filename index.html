@@ -1,123 +1,155 @@
-/* Basic Body Styling */
-body {
-    font-family: "Comic Sans MS", sans-serif;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport Meta Tag -->
+    <title>FLAMES Game</title>
+    <style>
+        /* Basic Body Styling */
+        body {
+            font-family: "Comic Sans MS", sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
 
-/* Container Styling for the Game */
-.container {
-    text-align: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 90%; /* Adjusted width for better responsiveness */
-}
+        /* Container Styling for the Game */
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 90%; /* Adjusted width for better responsiveness */
+        }
 
-/* Styling the Input Fields */
-input[type="text"] {
-    padding: 10px;
-    margin: 10px;
-    width: 90%; /* Make it more flexible */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: "Comic Sans MS", sans-serif;
-    font-size: 1rem; /* Use relative font size for better responsiveness */
-}
+        /* Styling the Input Fields */
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 90%; /* Make it more flexible */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: "Comic Sans MS", sans-serif;
+            font-size: 1rem; /* Use relative font size for better responsiveness */
+        }
 
-/* Button Styling */
-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #f77a7a;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Comic Sans MS", sans-serif;
-    font-size: 1rem; /* Same as input fields */
-}
+        /* Button Styling */
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #f77a7a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: "Comic Sans MS", sans-serif;
+            font-size: 1rem; /* Same as input fields */
+        }
 
-/* Hover Effect for Button */
-button:hover {
-    background-color: #f54e4e;
-}
+        /* Hover Effect for Button */
+        button:hover {
+            background-color: #f54e4e;
+        }
 
-/* Styling the Result Text */
-.result {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #333;
-}
+        /* Styling the Result Text */
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
 
-/* Loading Bar Styling */
-.loading-bar-container {
-    width: 90%;
-    background-color: #ccc;
-    border-radius: 5px;
-    margin: 10px auto;
-    height: 20px;
-    display: none;
-}
+        /* Loading Bar Styling */
+        .loading-bar-container {
+            width: 90%;
+            background-color: #ccc;
+            border-radius: 5px;
+            margin: 10px auto;
+            height: 20px;
+            display: none;
+        }
 
-/* Loading Bar Progress */
-.loading-bar {
-    height: 100%;
-    background-color: #4caf50;
-    width: 0%;
-    border-radius: 5px;
-    text-align: center;
-    line-height: 20px;
-    color: white;
-}
+        /* Loading Bar Progress */
+        .loading-bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0%;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
 
-/* Flame Logo Positioned in Bottom Right Corner */
-#flameLogo {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 20vw; /* Scale with viewport width */
-    max-width: 150px; /* Limit the max width to prevent it from being too large */
-    height: auto;
-    z-index: 1000;
-}
+        /* Flame Logo Positioned in Bottom Right Corner */
+        #flameLogo {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 20vw; /* Scale with viewport width */
+            max-width: 150px; /* Limit the max width to prevent it from being too large */
+            height: auto;
+            z-index: 1000;
+        }
 
-/* Responsive Styling for Smaller Screens */
-@media (max-width: 600px) {
-    body {
-        height: auto;
-        justify-content: flex-start;
-        padding-top: 20px;
-    }
+        /* Responsive Styling for Smaller Screens */
+        @media (max-width: 600px) {
+            body {
+                height: auto;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
 
-    /* Adjust the container */
-    .container {
-        width: 90%;
-    }
+            /* Adjust the container */
+            .container {
+                width: 90%;
+            }
 
-    /* Adjust Flame Logo for Smaller Screens */
-    #flameLogo {
-        width: 40vw; /* Make it smaller on mobile */
-        max-width: 100px;
-        bottom: 10px;
-        right: 10px;
-    }
+            /* Adjust Flame Logo for Smaller Screens */
+            #flameLogo {
+                width: 40vw; /* Make it smaller on mobile */
+                max-width: 100px;
+                bottom: 10px;
+                right: 10px;
+            }
 
-    input[type="text"], button {
-        width: 100%; /* Make inputs and buttons full width on smaller screens */
-    }
+            input[type="text"], button {
+                width: 100%; /* Make inputs and buttons full width on smaller screens */
+            }
 
-    /* Adjust font sizes for mobile */
-    h1 {
-        font-size: 1.5em; /* Smaller header size on mobile */
-    }
+            /* Adjust font sizes for mobile */
+            h1 {
+                font-size: 1.5em; /* Smaller header size on mobile */
+            }
 
-    .result {
-        font-size: 1em; /* Make result text smaller */
-    }
-}
+            .result {
+                font-size: 1em; /* Make result text smaller */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container for the Game -->
+    <div class="container">
+        <h1>FLAMES Game</h1>
+        <input type="text" id="yourName" placeholder="Your Name" />
+        <input type="text" id="crushName" placeholder="Crush's Name" />
+        <button id="calculateButton" onclick="calculateFlames()">Calculate FLAMES</button>
+        <div id="result" class="result"></div>
+
+        <!-- Loading Bar -->
+        <div class="loading-bar-container" id="loadingBarContainer">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+    </div>
+
+    <!-- Flame Logo in Bottom Right Corner -->
+    <img id="flameLogo" src="image/fired.gif" alt="Flame Logo" />
+
+    <script>
+        // JavaScript code for calculating FLAMES and other interactions
+    </script>
+</body>
+</html>
